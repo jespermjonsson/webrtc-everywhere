@@ -832,7 +832,7 @@
 					"-lwebrtc_i420",
 					"-lvideo_coding_utility",
 					"-lwebrtc_vp8",
-					"-lvpx",
+					"-lvpx_new",
 					"-lvpx_intrinsics_mmx",
 					"-lvpx_intrinsics_sse2",
 					"-lvpx_intrinsics_ssse3",
@@ -860,6 +860,11 @@
 					"-ljingle_p2p",
 					"-lsrtp",
 					"-lwebrtc_h264",
+					"-lrtc_event_log",
+					"-lrtc_event_log_source",
+					"-lrtc_event_log_proto",
+					"-lisac_common",
+					"-lisac_fix",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = plugin;
@@ -927,7 +932,7 @@
 					"-lwebrtc_i420",
 					"-lvideo_coding_utility",
 					"-lwebrtc_vp8",
-					"-lvpx",
+					"-lvpx_new",
 					"-lvpx_intrinsics_mmx",
 					"-lvpx_intrinsics_sse2",
 					"-lvpx_intrinsics_ssse3",
@@ -955,6 +960,11 @@
 					"-ljingle_p2p",
 					"-lsrtp",
 					"-lwebrtc_h264",
+					"-lrtc_event_log",
+					"-lrtc_event_log_source",
+					"-lrtc_event_log_proto",
+					"-lisac_common",
+					"-lisac_fix",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = plugin;
