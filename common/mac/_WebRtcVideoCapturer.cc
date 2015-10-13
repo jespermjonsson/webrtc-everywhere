@@ -51,7 +51,7 @@
 namespace cricket {
     
     struct kVideoFourCCEntry {
-        uint32 fourcc;
+        uint32_t fourcc;
         webrtc::RawVideoType webrtc_type;
     };
     
@@ -84,7 +84,7 @@ namespace cricket {
     
     static bool CapabilityToFormat(const webrtc::VideoCaptureCapability& cap,
                                    VideoFormat* format) {
-        uint32 fourcc = 0;
+        uint32_t fourcc = 0;
         for (size_t i = 0; i < ARRAY_SIZE(kSupportedFourCCs); ++i) {
             if (kSupportedFourCCs[i].webrtc_type == cap.rawType) {
                 fourcc = kSupportedFourCCs[i].fourcc;
@@ -156,7 +156,7 @@ namespace cricket {
     }
     
     bool WebRtcVideoCapturer::Init(const Device& device) {
-        DCHECK(!start_thread_);
+        RTC_DCHECK(!start_thread_);
         if (module_) {
             LOG(LS_ERROR) << "The capturer is already initialized";
             return false;
@@ -235,7 +235,7 @@ namespace cricket {
     }
     
     bool WebRtcVideoCapturer::Init(webrtc::VideoCaptureModule* module) {
-        DCHECK(!start_thread_);
+        RTC_DCHECK(!start_thread_);
         if (module_) {
             LOG(LS_ERROR) << "The capturer is already initialized";
             return false;
@@ -272,7 +272,7 @@ namespace cricket {
         // Can't take lock here as this will cause deadlock with
         // OnIncomingCapturedFrame. In fact, the whole method, including methods it
         // calls, can't take lock.
-        DCHECK(module_);
+        RTC_DCHECK(module_);
         
         const std::string group_name =
         webrtc::field_trial::FindFullName("WebRTC-CVO");
@@ -295,13 +295,13 @@ namespace cricket {
         }
         if (start_thread_) {
             LOG(LS_ERROR) << "The capturer is already running";
-            DCHECK(start_thread_->IsCurrent())
+            RTC_DCHECK(start_thread_->IsCurrent())
             << "Trying to start capturer on different threads";
             return CS_FAILED;
         }
         
         start_thread_ = rtc::Thread::Current();
-        DCHECK(!async_invoker_);
+        RTC_DCHECK(!async_invoker_);
         async_invoker_.reset(new rtc::AsyncInvoker());
         captured_frames_ = 0;
         
@@ -313,7 +313,7 @@ namespace cricket {
             return CS_FAILED;
         }
         
-        uint32 start = rtc::Time();
+        uint32_t start = rtc::Time();
         module_->RegisterCaptureDataCallback(*this);
         
 #if 1 // TOODO(dmi)
@@ -362,9 +362,9 @@ namespace cricket {
             LOG(LS_ERROR) << "The capturer is already stopped";
             return;
         }
-        DCHECK(start_thread_);
-        DCHECK(start_thread_->IsCurrent());
-        DCHECK(async_invoker_);
+        RTC_DCHECK(start_thread_);
+        RTC_DCHECK(start_thread_->IsCurrent());
+        RTC_DCHECK(async_invoker_);
         if (IsRunning()) {
             // The module is responsible for OnIncomingCapturedFrame being called, if
             // we stop it we will get no further callbacks.
@@ -407,7 +407,7 @@ namespace cricket {
     }
     
     bool WebRtcVideoCapturer::GetPreferredFourccs(
-                                                  std::vector<uint32>* fourccs) {
+                                                  std::vector<uint32_t>* fourccs) {
         if (!fourccs) {
             return false;
         }
@@ -428,8 +428,8 @@ namespace cricket {
             return;
         }
         // This can only happen between Start() and Stop().
-        DCHECK(start_thread_);
-        DCHECK(async_invoker_);
+        RTC_DCHECK(start_thread_);
+        RTC_DCHECK(async_invoker_);
         if (start_thread_->IsCurrent()) {
             SignalFrameCapturedOnStartThread(sample);
         } else {
@@ -454,9 +454,9 @@ namespace cricket {
     void WebRtcVideoCapturer::SignalFrameCapturedOnStartThread(
                                                                const webrtc::VideoFrame frame) {
         // This can only happen between Start() and Stop().
-        DCHECK(start_thread_);
-        DCHECK(start_thread_->IsCurrent());
-        DCHECK(async_invoker_);
+        RTC_DCHECK(start_thread_);
+        RTC_DCHECK(start_thread_->IsCurrent());
+        RTC_DCHECK(async_invoker_);
         
         ++captured_frames_;
         // Log the size and pixel aspect ratio of the first captured frame.
@@ -492,7 +492,7 @@ namespace cricket {
         // Convert units from VideoFrame RenderTimeMs to CapturedFrame (nanoseconds).
         elapsed_time = sample.render_time_ms() * rtc::kNumNanosecsPerMillisec;
         time_stamp = elapsed_time;
-        data_size = rtc::checked_cast<uint32>(length);
+        data_size = rtc::checked_cast<uint32_t>(length);
         data = buffer;
         rotation = sample.rotation();
     }

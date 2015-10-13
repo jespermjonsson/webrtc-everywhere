@@ -18,7 +18,7 @@
 #	define kDoubangoSharedMemoryId 85697421
 #endif /* kDoubangoSharedMemoryId */
 
-static const int64 kNumNanoSecsPerMilliSec = 1000000;
+static const int64_t kNumNanoSecsPerMilliSec = 1000000;
 static const int kDefaultScreencastFps = 5;
 
 
@@ -33,7 +33,7 @@ public:
 	}
 private:
 	char* buffer_;
-	DISALLOW_COPY_AND_ASSIGN(_SharedMemory);
+	RTC_DISALLOW_COPY_AND_ASSIGN(_SharedMemory);
 };
 
 class _ScreenVideoCapturer;
@@ -59,7 +59,7 @@ private:
 	mutable rtc::CriticalSection crit_;
 	bool finished_;
 
-	DISALLOW_COPY_AND_ASSIGN(_ScreenVideoCapturerThread);
+	RTC_DISALLOW_COPY_AND_ASSIGN(_ScreenVideoCapturerThread);
 };
 
 //
@@ -162,10 +162,10 @@ public:
 
 		// Keep track of which thread capture started on. This is the thread that
 		// frames need to be sent to.
-		DCHECK(!startThread_);
+		RTC_DCHECK(!startThread_);
 		startThread_ = rtc::Thread::Current();
 
-		start_time_ns_ = kNumNanoSecsPerMilliSec * static_cast<int64>(rtc::Time());
+		start_time_ns_ = kNumNanoSecsPerMilliSec * static_cast<int64_t>(rtc::Time());
 
 		bool ret = capture_thread_->Start();
 		if (ret) {
@@ -252,7 +252,7 @@ public:
 			curr_frame_.data_size = data_size;
 			curr_frame_.data = desktopFrame->data();
 			curr_frame_.time_stamp = kNumNanoSecsPerMilliSec *
-				static_cast<int64>(start_read_time_ms_);
+				static_cast<int64_t>(start_read_time_ms_);
 			curr_frame_.elapsed_time = curr_frame_.time_stamp - start_time_ns_;
 
 			if (startThread_->IsCurrent()) {
@@ -268,7 +268,7 @@ public:
 
 	// Used to signal frame capture on the thread that capturer was started on.
 	void SignalFrameCapturedOnStartThread(const cricket::CapturedFrame* frame) {
-		DCHECK(startThread_->IsCurrent());
+		RTC_DCHECK(startThread_->IsCurrent());
 		SignalFrameCaptured(this, frame);
 	}
 
@@ -280,10 +280,10 @@ private:
 	rtc::scoped_ptr<webrtc::DesktopFrame> next_frame_;
 	cricket::CapturedFrame curr_frame_;
 	rtc::Thread* startThread_;  // Set in Start(), unset in Stop().
-	int64 start_time_ns_;  // Time when the video capturer starts.
-	int64 last_frame_timestamp_ns_;  // Timestamp of last read frame.
+	int64_t start_time_ns_;  // Time when the video capturer starts.
+	int64_t last_frame_timestamp_ns_;  // Timestamp of last read frame.
 	uint32 start_read_time_ms_; // Timestamp we requested screenshot
-	DISALLOW_COPY_AND_ASSIGN(_ScreenVideoCapturer);
+	RTC_DISALLOW_COPY_AND_ASSIGN(_ScreenVideoCapturer);
 };
 
 //
