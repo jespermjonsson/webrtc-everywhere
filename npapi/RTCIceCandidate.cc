@@ -170,11 +170,11 @@ NPError RTCIceCandidate::Init(NPVariant* candidateInitDict)
 		m_Candidate = cpp11::shared_ptr<_RTCIceCandidate>(new _RTCIceCandidate(strCandidate.c_str()));
 	}
 	else if (NPVARIANT_IS_OBJECT(*candidateInitDict) && candidateInitDict->value.objectValue) {
-		NPObject* npObj = candidateInitDict->value.objectValue;
-		RTCIceCandidate* _candidateInitDict = (RTCIceCandidate*)(RTCIceCandidate::IsInstanceOf(npObj) ? npObj : Utils::NPObjectUpCast(npObj));
+		NPObject* _candidateInitDict = candidateInitDict->value.objectValue;
+		/*RTCIceCandidate* _candidateInitDict = (RTCIceCandidate*)(RTCIceCandidate::IsInstanceOf(npObj) ? npObj : Utils::NPObjectUpCast(npObj));
 		if (!_candidateInitDict) {
 			CHECK_NPERR_RETURN(NPERR_GENERIC_ERROR);
-		}
+		}*/
 
 		std::string strCandidate, strSdpMid;
 		NPError err;
