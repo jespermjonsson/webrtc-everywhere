@@ -2,6 +2,18 @@
 #ifndef _WEBRTC_EVERYWHERE_CONFIG_H_
 #define _WEBRTC_EVERYWHERE_CONFIG_H_
 
+#ifdef __cplusplus
+	#define __STDC_CONSTANT_MACROS
+    #define __STDC_LIMIT_MACROS	
+	#ifndef _CRT_SECURE_NO_DEPRECATE
+		#define _CRT_SECURE_NO_DEPRECATE
+	#endif
+	#ifdef _STDINT_H
+		#undef _STDINT_H
+	#endif
+	#include "stdint.h"
+#endif
+
 #define WE_CAT_(A, B) A ## B
 #define WE_CAT(A, B) WE_CAT_(A, B)
 #define WE_STRING_(A) #A

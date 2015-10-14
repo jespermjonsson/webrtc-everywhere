@@ -143,7 +143,7 @@ bool _VideoRenderer::PaintFrame(intptr_t layer /*= 0*/)
     _AutoLock<_VideoRenderer> lock(this);
 
 #if WE_UNDER_WINDOWS
-    const uint8* image = m_image.get();
+    const uint8_t* image = m_image.get();
 	ATL_DRAWINFO* drawInfo  = reinterpret_cast<ATL_DRAWINFO*>(layer);
 	if ((m_Hwnd || drawInfo) && image) {
 		PAINTSTRUCT ps;
@@ -254,7 +254,7 @@ size_t _VideoRenderer::CopyFromFrame(void* bufferPtr, size_t bufferSize)
 	if (bufferPtr && bufferSize) {
 		_AutoLock<_VideoRenderer> lock(this);
 		size_t sizeToCopy = std::min((int)bufferSize, (m_width * m_height * 4));
-		const uint8* image = m_image.get();
+		const uint8_t* image = m_image.get();
 		if (image) {
 			memcpy(bufferPtr, image, sizeToCopy);
 			return sizeToCopy;
@@ -300,7 +300,7 @@ void _VideoRenderer::SetSize(int width, int height)
 	m_bmi.bmiHeader.biHeight = -height;
 	m_bmi.bmiHeader.biSizeImage = width * height *
 		(m_bmi.bmiHeader.biBitCount >> 3);
-	m_image.reset(new uint8[m_bmi.bmiHeader.biSizeImage]);
+	m_image.reset(new uint8_t[m_bmi.bmiHeader.biSizeImage]);
 	if (m_Hwnd) {
 	}
 #elif WE_UNDER_APPLE

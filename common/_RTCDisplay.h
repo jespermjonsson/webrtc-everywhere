@@ -72,7 +72,7 @@ private:
 	int m_height;
 	cpp11::function<void()> m_fnOnStartVideoRenderer;
     webrtc::CriticalSectionWrapper *m_cs;
-	rtc::scoped_ptr<uint8[]> m_image;
+	rtc::scoped_ptr<uint8_t[]> m_image;
 	rtc::scoped_refptr<webrtc::VideoTrackInterface> m_rendered_track;
 };
 

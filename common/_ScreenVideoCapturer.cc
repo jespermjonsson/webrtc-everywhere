@@ -196,7 +196,7 @@ public:
 		return running_ && capture_thread_ && !capture_thread_->Finished();
 	}
 	virtual bool IsScreencast() const { return true; }
-	bool GetPreferredFourccs(std::vector<uint32>* fourccs) {
+	bool GetPreferredFourccs(std::vector<uint32_t>* fourccs) {
 		fourccs->push_back(cricket::FOURCC_I420);
 		fourccs->push_back(cricket::FOURCC_ARGB);
 		fourccs->push_back(cricket::FOURCC_RGBA);
@@ -231,7 +231,7 @@ public:
 	virtual void OnCaptureCompleted(webrtc::DesktopFrame* desktopFrame)
 	{
 		if (IsRunning() && desktopFrame) {
-			uint32 data_size = 0;
+			uint32_t data_size = 0;
 			if (!GetCaptureFormat()) {
 				LOG(LS_ERROR) << "Screen video capturer '" << GetId() << "' GetCaptureFormat failed";
 				goto next;
@@ -240,7 +240,7 @@ public:
 				data_size = desktopFrame->size().width() * 4 * desktopFrame->size().height();
 			}
 			else if (GetCaptureFormat()->fourcc == cricket::FOURCC_I420) {
-				data_size = static_cast<uint32>(cricket::VideoFrame::SizeOf(desktopFrame->size().width(), desktopFrame->size().height()));
+				data_size = static_cast<uint32_t>(cricket::VideoFrame::SizeOf(desktopFrame->size().width(), desktopFrame->size().height()));
 			}
 			else {
 				LOG(LS_ERROR) << "Screen video capturer '" << GetId() << "' Unsupported FOURCC " << GetCaptureFormat()->fourcc;
@@ -282,7 +282,7 @@ private:
 	rtc::Thread* startThread_;  // Set in Start(), unset in Stop().
 	int64_t start_time_ns_;  // Time when the video capturer starts.
 	int64_t last_frame_timestamp_ns_;  // Timestamp of last read frame.
-	uint32 start_read_time_ms_; // Timestamp we requested screenshot
+	uint32_t start_read_time_ms_; // Timestamp we requested screenshot
 	RTC_DISALLOW_COPY_AND_ASSIGN(_ScreenVideoCapturer);
 };
 
