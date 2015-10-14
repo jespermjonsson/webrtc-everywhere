@@ -1,3 +1,7 @@
 xcode/webrtc-everywhere.xcodeproj/project.xcworkspace/xcuserdata/*.xcuserdatad
 xcode/webrtc-everywhere.xcodeproj/xcuserdata/*.xcuserdatad
 xcode/webrtc-everywhere.xcodeproj/project.xcworkspace/xcshareddata/webrtc-everywhere.xcscmblueprint
+common/Debug
+Debug
+ie/webrtc-everywhere-ie.vcxproj.user
+webrtc-everywhere.sdf
